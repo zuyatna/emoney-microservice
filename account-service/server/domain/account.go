@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"context"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -20,4 +21,8 @@ type CustomClaim struct {
 	ID    string `json:"id"`
 	Email string `json:"email"`
 	jwt.RegisteredClaims
+}
+
+type AccountPublisher interface {
+	PublishAccountCreated(ctx context.Context, id, name, email string) error
 }
