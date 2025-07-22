@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	_ "github.com/lib/pq"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/redis/go-redis/v9"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
@@ -62,6 +63,13 @@ func runService(logger *logrus.Logger) error {
 		logger.Fatalf("Error connecting to Redis: %v", err)
 	}
 	logger.Println("Connected to Redis")
+
+	rabbitConn, err := amqp.Dial(cfg.RabbitMQURL)
+	if err != nil {
+		logger.Fatalf("Error connecting to RabbitMQ: %v", err)
+	}
+	defer rabbitConn.Close()
+	logger.Println("Connected to RabbitMQ")
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
