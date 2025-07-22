@@ -29,4 +29,32 @@ protoc --proto_path=proto \
        proto/account.proto
 ```
 > Assuming that you clone google api in outer root project.
-> Note: Change --proto-path=../../googleapis, based on your project structures
+>
+> Note: Change `--proto-path=../../googleapis`, based on your project structures
+
+### Setup Postgres, Redis, RabbitMQ, and Elasticsearch in Docker
+- PostgreSQL
+```
+docker run --name my-postgres \
+       -e POSTGRES_PASSWORD=passwordrahasia \
+       -p 5432:5432 \
+       -v postgres-data:/var/lib/postgresql/data \
+       -d postgres
+```
+
+Access postgres via docker
+`docker exec -it my-postgres psql -U postgres`
+
+Creating new database
+`CREATE DATABASE emoney;`
+
+Access database
+`\c {database_name}`
+
+- Redis
+```
+docker run --name my-redis \
+       -p 6379:6379 \
+       -v redis-data:/data \
+       -d redis
+```
