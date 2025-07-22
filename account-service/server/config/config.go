@@ -11,6 +11,7 @@ type Config struct {
 	HTTPPort    string `mapstructure:"HTTP_PORT"`
 	PostgresURL string `mapstructure:"POSTGRES_URL"`
 	RedisURL    string `mapstructure:"REDIS_URL"`
+	RabbitMQURL string `mapstructure:"RABBITMQ_URL"`
 	JWTSecret   string `mapstructure:"JWT_SECRET"`
 }
 
