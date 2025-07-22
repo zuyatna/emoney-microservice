@@ -3,6 +3,7 @@ module github.com/zuyatna/emoney-microservice/account-service
 go 1.24.5
 
 require (
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
 	github.com/lib/pq v1.10.9
 	github.com/redis/go-redis/v9 v9.11.0
