@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"time"
 
@@ -73,7 +74,7 @@ func (r *accountRepository) GetAccountByID(ctx context.Context, id string) (*dom
 	account := &domain.Account{}
 	err = row.Scan(&account.ID, &account.Name, &account.Email, &account.Password, &account.Balance, &account.CreatedAt, &account.UpdatedAt)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("account not found: %w", err)
 		}
 		return nil, fmt.Errorf("failed to get account by ID: %w", err)
@@ -98,7 +99,7 @@ func (r *accountRepository) GetAccountByEmail(ctx context.Context, email string)
 	account := &domain.Account{}
 	err := row.Scan(&account.ID, &account.Name, &account.Email, &account.Password, &account.Balance, &account.CreatedAt, &account.UpdatedAt)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("account not found: %w", err)
 		}
 		return nil, fmt.Errorf("failed to get account by email: %w", err)
