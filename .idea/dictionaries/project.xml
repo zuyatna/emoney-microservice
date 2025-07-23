@@ -2,6 +2,9 @@
   <dictionary name="project">
     <words>
       <w>emoney</w>
+      <w>grpcport</w>
+      <w>mapstructure</w>
+      <w>postgre</w>
       <w>zuyatna</w>
     </words>
   </dictionary>

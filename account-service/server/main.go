@@ -45,7 +45,12 @@ func runService(logger *logrus.Logger) error {
 	if err != nil {
 		logger.Fatalf("Error connecting to PostgreSQL: %v", err)
 	}
-	defer db.Close()
+	defer func(db *sql.DB) {
+		err := db.Close()
+		if err != nil {
+			logger.Fatalf("Error closing db: %v", err)
+		}
+	}(db)
 
 	db.SetMaxOpenConns(10)
 	db.SetMaxIdleConns(5)
@@ -68,7 +73,12 @@ func runService(logger *logrus.Logger) error {
 	if err != nil {
 		logger.Fatalf("Error connecting to RabbitMQ: %v", err)
 	}
-	defer rabbitConn.Close()
+	defer func(rabbitConn *amqp.Connection) {
+		err := rabbitConn.Close()
+		if err != nil {
+			logger.Fatalf("Error closing connection: %v", err)
+		}
+	}(rabbitConn)
 	logger.Println("Connected to RabbitMQ")
 
 	quit := make(chan os.Signal, 1)
