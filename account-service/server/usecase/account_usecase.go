@@ -91,7 +91,6 @@ func (a *accountUseCase) LoginAccount(ctx context.Context, email string, passwor
 	return tokenString, nil
 }
 
-// GetAccountByID implements AccountUseCase.
 func (a *accountUseCase) GetAccountByID(ctx context.Context, id string) (*domain.Account, error) {
-	panic("unimplemented")
+	return a.repo.GetAccountByID(ctx, id)
 }
