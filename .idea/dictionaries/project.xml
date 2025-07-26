@@ -5,6 +5,7 @@
       <w>grpcport</w>
       <w>mapstructure</w>
       <w>postgre</w>
+      <w>sslmode</w>
       <w>usecase</w>
       <w>zuyatna</w>
     </words>
