@@ -84,7 +84,7 @@ func runService(logger *logrus.Logger) error {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	logger.Println("Shutting down gracefully...")
+	logger.Warn("Shutting down gracefully...")
 
 	return nil
 }
