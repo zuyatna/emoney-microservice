@@ -42,16 +42,16 @@ docker run --name my-postgres \
        -d postgres
 ```
 
-Access postgres via docker
+Access postgres via docker:
 `docker exec -it my-postgres psql -U postgres`
 
-Get all databases
+Get all databases:
 `\l`
 
-Creating new database
+Creating new database:
 `CREATE DATABASE emoney;`
 
-Access database
+Access database:
 `\c {database_name}`
 
 - Redis
