@@ -45,6 +45,9 @@ docker run --name my-postgres \
 Access postgres via docker
 `docker exec -it my-postgres psql -U postgres`
 
+Get all databases
+`\l`
+
 Creating new database
 `CREATE DATABASE emoney;`
 
