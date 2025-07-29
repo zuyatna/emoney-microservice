@@ -10,10 +10,7 @@ import (
 	"github.com/zuyatna/emoney-microservice/transaction-service/server/config"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"net"
 	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main() {
@@ -22,6 +19,10 @@ func main() {
 	logger.SetOutput(os.Stdout)
 	logger.SetLevel(logrus.InfoLevel)
 
+	if err := runService(logger); err != nil {
+		logger.WithError(err).Fatal("Transaction service failed to run")
+	}
+	logger.Info("Transaction service is running")
 }
 
 func runService(logger *logrus.Logger) error {
@@ -78,18 +79,4 @@ func runService(logger *logrus.Logger) error {
 	logger.Info("Connected to RabbitMQ")
 
 	// TODO: Implement the rest of the service logic here, such as setting up gRPC servers, handling requests, etc.
-
-	errChan := make(chan error, 2)
-	go func() {
-		lis, err := net.Listen("tcp", ":"+cfg.GRPCPort)
-		if err != nil {
-			errChan <- err
-			return
-		}
-		logger.WithField("port", cfg.GRPCPort).Info("gRPC server listening")
-
-	}()
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-
 }
