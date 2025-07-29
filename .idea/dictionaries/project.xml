@@ -6,7 +6,9 @@
       <w>mapstructure</w>
       <w>postgre</w>
       <w>protobuffer</w>
+      <w>rabbitmqurl</w>
       <w>sslmode</w>
+      <w>supersecretkey</w>
       <w>usecase</w>
       <w>zuyatna</w>
     </words>

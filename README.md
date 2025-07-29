@@ -71,3 +71,11 @@ docker run -d --hostname my-rabbit --name some-rabbit \
     -p 15672:15672 \
     rabbitmq:4-management
 ```
+- Elasticsearch
+```
+docker network create elastic
+
+docker pull docker.elastic.co/elasticsearch/elasticsearch:9.0.4
+
+docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:9.0.4
+```
