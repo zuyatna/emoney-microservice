@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package transaction;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/zuyatna/transaction-service/server/pb";
+
+message Transaction {
+  string id = 1;
+  string from_account_id = 2;
+  string to_account_id = 3;
+  double amount = 4;
+  string transaction_type = 5; // e.g., "topup", "transfer"
+  string notes = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message TopupRequest {
+  string account_id = 1;
+  double amount = 2;
+}
+
+message TransaferRequest {
+  string from_account_id = 1;
+  string to_account_id = 2;
+  double amount = 3;
+}
+
+message TransactionResponse {
+  string transaction_id = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message GetHistoryRequest {
+  string account_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message GetHistoryResponse {
+    repeated Transaction transactions = 1;
+    int32 total = 2;
+    int32 page = 3;
+    int32 limit = 4;
+}
+
+service TransactionService {
+  rpc Topup(TopupRequest) returns (TransactionResponse) {
+    option (google.api.http) = {
+      post: "/v1/transactions/topup"
+      body: "*"
+    };
+  }
+
+  rpc Transfer(TransaferRequest) returns (TransactionResponse) {
+    option (google.api.http) = {
+      post: "/v1/transactions/transfer"
+      body: "*"
+    };
+  }
+
+  rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/transactions/history/{account_id}"
+    };
+  }
+}
